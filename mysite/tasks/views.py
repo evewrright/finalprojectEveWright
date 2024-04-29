@@ -11,6 +11,13 @@ class TasksIndexView(generic.ListView):
     template_name = "tasks/index.html"
     context_object_name = "tasks"
 
+    def get_queryset(self):
+        # Only retrieve tasks that were created by current user and aren't complete
+        if self.request.user.is_authenticated:
+            return Task.objects.filter(author_id=self.request.user, complete=False)
+        else:
+            return Task.objects.none()
+
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
 
@@ -56,3 +63,11 @@ class TasksDeleteView(generic.DeleteView):
     model = Task
     template_name = "tasks/index.html"
     success_url = reverse_lazy("tasks:index")
+
+
+def mark_complete(request, task_id):
+    if request.method == 'POST':
+        task = Task.objects.get(pk=task_id)
+        task.complete = True
+        task.save()
+        return HttpResponseRedirect(reverse('tasks:index'))

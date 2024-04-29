@@ -37,7 +37,7 @@
                             <td>{{ task.category }}</td>
                             <td>{{ task.created_at }}</td>
                             <td>
-                                <form action="" method="post">
+                                <form action="{% url 'tasks:mark-complete' task.id %}" method="POST">
                                     {% csrf_token %}
                                     <input type="hidden" name="task_id" value="{{ task.id }}">
                                     <button type="submit" class="btn btn-primary">Mark Complete</button>
