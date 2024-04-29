@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+    <section class="vh-100" style="background-color: #eee;">
+      <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+          <div class="col col-xl-10">
+            <div class="card rounded-3">
+              <div class="card-body p-3">
+
+                <div class="row">
+                  <div class="col-10">
+                    <h4 class="text-left ms-3">To-Do</h4>
+                  </div>
+                  <div class="col-2">
+                    <a class="btn text-white" data-mdb-ripple-init style="background-color: #55acee; font-size: 1em" href="{% url 'tasks:create' %}" role="button">
+                      + Task
+                    </a>
+                  </div>
+                </div>
+                  <!-- Start Table -->
+                <div class="container">
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Task Item</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% if tasks %}
+                        {% for task in tasks %}
+                          <tr>
+                            <th scope="row">{{ forloop.counter }}</th>
+                            <td><a href="{% url 'tasks:detail' task.id %}">{{ task.title }}</a></td>
+                            <td>{{ task.category }}</td>
+                            <td>{{ task.created_at }}</td>
+                            <td>
+                                <form action="" method="post">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="task_id" value="{{ task.id }}">
+                                    <button type="submit" class="btn btn-primary">Mark Complete</button>
+                                </form>
+                            </td>
+                            <td><button type="button" class="btn btn-danger" data-task-id="{{ task.id }}" data-mdb-ripple-init data-mdb-modal-init data-mdb-target="#deleteModal{{ task.id }}"><i class="fas fa-trash-can"></i></button>
+                            </td>
+                            <td><a href="{% url 'tasks:update' task.id %}">Edit</a></td>
+                          </tr>
+                          <div class="modal fade" id="deleteModal{{ task.id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ task.id }}" aria-hidden="true">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title" id="deleteModalLabel{{ task.id }}">Confirm Deletion</h5>
+                                    <button type="button" class="btn-close" data-mdb-ripple-init data-mdb-dismiss="modal" aria-label="Close"></button>
+                                  </div>
+                                  <form  action="{% url 'tasks:task-delete' task.id %}" method="POST">
+                                      {% csrf_token %}
+                                      <div class="modal-body">
+                                          <p> Are you sure you want to delete task "{{ task.title }}"?</p>
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-mdb-ripple-init data-mdb-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn btn-danger" data-mdb-ripple-init value="Confirm">Delete</button>
+                                      </div>
+                                  </form>
+                                </div>
+                              </div>
+                          </div>
+                        {% endfor %}
+                      {% else %}
+                        <tr>
+                          <td colspan="2">You have no tasks.</td>
+                        </tr>
+                      {% endif %}
+                    </tbody>
+                  </table>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+{% endblock %}
