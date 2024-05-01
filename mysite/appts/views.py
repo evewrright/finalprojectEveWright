@@ -1,6 +1,12 @@
 from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.http import HttpResponse, HttpResponseRedirect
+from django.views import generic
+from .models import Appointment
+from django.urls import reverse, reverse_lazy
 
-from django.http import HttpResponse
 
-def index(request):
-    return HttpResponse("This is the main index")
+class ApptsIndexView(generic.ListView):
+    model = Appointment
+    template_name = "appts/index.html"
+    context_object_name = "appointments"
