@@ -1,14 +1,11 @@
 from django.shortcuts import render
+import requests
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
-from django.views import generic
+from django.views import View, generic
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.mixins import LoginRequiredMixin
-
-
-def index(request):
-    return HttpResponse("This is the main index")
 
 
 class MyLoginView(LoginView):
@@ -18,3 +15,8 @@ class MyLoginView(LoginView):
 
     def get_success_url(self):
         return reverse_lazy("tasks:index")
+
+
+class HomeView(generic.TemplateView):
+    template_name = 'main/home.html'
+
