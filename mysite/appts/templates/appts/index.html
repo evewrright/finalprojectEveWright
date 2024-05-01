@@ -1,8 +1,12 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'appts/style.css' %}">
+
 
 {% block content %}
-    <section class="vh-100" style="background-color: #eee;">
+    <section class="mask d-flex align-items-center h-100">
       <div class="container py-5 h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
           <div class="col col-xl-10">
@@ -14,15 +18,15 @@
                     <h4 class="text-left ms-3">Appointments</h4>
                   </div>
                   <div class="col-2">
-                    <a class="btn text-white" data-mdb-ripple-init style="background-color: #55acee; font-size: 1em" href="#" role="button">
-                      + Appointment
+                    <a class="btn text-white" data-mdb-ripple-init style="background-color: #55acee" href="{% url 'appts:create' %}" role="button">
+                      +
                     </a>
                   </div>
                 </div>
                   <!-- Start Table -->
                 <div class="container">
-                  <table class="table table-striped">
-                    <thead>
+                  <table class="table table-striped mb-0">
+                    <thead style="background-color: #002d72;">
                       <tr>
                         <th scope="col">#</th>
                         <th scope="col">Student</th>
@@ -33,12 +37,12 @@
                         {% for appointment in appointments %}
                           <tr>
                             <th scope="row">{{ forloop.counter }}</th>
-                            <td><a href="#">{{ appointment.student_id }}</a></td>
+                            <td><a href="{% url 'appts:detail' appointment.id %}">{{ appointment.student_id }}</a></td>
                             <td>{{ appointment.topic }}</td>
                             <td>{{ appointment.created_at }}</td>
                             <td>{{ appointment.occurred }}</td>
                             <td>Delete</td>
-                            <td><a href="#">Edit</a></td>
+                            <td><a href="{% url 'appts:update' appointment.id %}">Edit</a></td>
                           </tr>
                         {% endfor %}
                       {% else %}
@@ -57,3 +61,5 @@
       </div>
     </section>
 {% endblock %}
+
+

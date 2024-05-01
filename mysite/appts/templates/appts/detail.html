@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+    <section class="order-form m-4">
+      <div class="container pt-4">
+          <div class="row">
+              <div class="col-12 px-4">
+                  <h2>Appointment Details</h2>
+                  <span>Created on {{ appointment.created_at }}  |  Last Updated on {{ appointment.updated_at }}</span>
+                  <p>Created by {{ appointment.author }}</p>
+                  <hr class="mt-1" />
+              </div>
+
+              <div class="col-12">
+                <form>
+                  <!-- Student -->
+                  <div class="form-outline mb-4">
+                    <label for="appt-student">Student</label>
+                    <input type="text" id="appt-student" class="form-control" value="{{ appointment.student }}" disabled readonly />
+                  </div>
+                  <!-- Topic -->
+                  <div class="form-outline mb-4">
+                    <label for="appt-topic">Topic</label>
+                    <input type="text" id="appt-topic" class="form-control" value="{{ appointment.topic }}" disabled readonly/>
+                  </div>
+                  <!-- Note -->
+                  <div class="form-outline mb-4">
+                    <label for="appt-note">Note</label>
+                    <textarea class="form-control" id="appt-note" rows="4" disabled readonly>{{ appointment.note }}</textarea>
+                  </div>
+                  <!-- Occurred -->
+                  <div class="form-outline mb-4">
+                    <label for="appt-occurred">Date of Appointment</label>
+                    <input type="date" id="appt-occurred" class="form-control" value="{{ appointment.occurred }}" disabled readonly/>
+                  </div>
+                </form>
+              </div>
+              <div class="col-12">
+                  <a class="btn btn-secondary" data-mdb-ripple-init href="{%  url 'appts:index' %}" role="button">Go Back</a>
+              </div>
+          </div>
+      </div>
+    </section>
+{% endblock %}
