@@ -45,7 +45,20 @@
                         <div class="d-flex flex-column justify-content-between h-100"> <!-- Make the container a flexbox -->
                             <div class="card mb-4 flex-grow-1" style="border-radius: 1rem;"> <!-- Use flex-grow-1 to make the card expand to fill remaining space -->
                                 <div class="card-body p-5">
-                                    <!-- Content for the right card goes here -->
+                                    <form method="POST" action="{% url 'appts:generate-paragraph' %}" class="form">
+                                        {% csrf_token %}
+                                        <div class="mb-3">
+                                            <label for="inputTextArea" class="form-label">Your Text:</label>
+                                            <textarea class="form-control" id="inputTextArea" name="inputTextArea" rows="5"></textarea>
+                                        </div>
+                                        <button type="submit" class="btn btn-secondary mb-3" id="generate-paragraph-btn">Generate Paragraph</button>
+                                    </form>
+                                    <div>
+                                        <p>This is example</p>
+                                        {% if my_paragraph %}
+                                            <p>{{ my_paragraph }}</p>
+                                        {% endif %}
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -55,3 +68,5 @@
         </div>
     </section>
 {% endblock %}
+
+
