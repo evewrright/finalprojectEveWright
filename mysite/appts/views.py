@@ -72,7 +72,7 @@ def generate_paragraph(request):
         url = "https://chatgpt-api8.p.rapidapi.com/"
         headers = {
             'content-type': 'application/json',
-            'X-RapidAPI-Key': 'b3d9b4f2aamsh2400155d584eb85p14f800jsna29b2bbdc421',
+            'X-RapidAPI-Key': 'api key',
             'X-RapidAPI-Host': 'chatgpt-api8.p.rapidapi.com'
         }
         payload = [
