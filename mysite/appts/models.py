@@ -16,7 +16,7 @@ class Appointment(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     occurred = models.DateTimeField()
     topic = models.ForeignKey(Topic, on_delete=models.CASCADE)
-    note = models.TextField(null=True)
+    note = models.TextField(blank=True)
 
     def __str__(self):
         return f"{self.student} -- {self.occurred}"
