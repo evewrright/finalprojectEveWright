@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views import generic
@@ -7,6 +6,8 @@ from django.urls import reverse, reverse_lazy
 from .forms import ApptsForm
 import requests
 from django.http import JsonResponse
+from datetime import datetime
+
 
 class ApptsIndexView(generic.ListView):
     model = Appointment
@@ -14,11 +15,9 @@ class ApptsIndexView(generic.ListView):
     context_object_name = "appointments"
 
     def get_queryset(self):
-        # Only retrieve appts that were created by current user
-        if self.request.user.is_authenticated:
-            return Appointment.objects.filter(author_id=self.request.user)
-        else:
-            return Appointment.objects.none()
+        queryset = {'prev_appointments': Appointment.objects.exclude(occurred__gte=datetime.now()),
+                    'future_appointments': Appointment.objects.filter(occurred__gte=datetime.now())}
+        return queryset
 
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
@@ -72,7 +71,7 @@ def generate_paragraph(request):
         url = "https://chatgpt-api8.p.rapidapi.com/"
         headers = {
             'content-type': 'application/json',
-            'X-RapidAPI-Key': 'api key',
+            'X-RapidAPI-Key': '1830fc88d2msh25c3bb738164ac9p11f623jsnc165619dcfcd',
             'X-RapidAPI-Host': 'chatgpt-api8.p.rapidapi.com'
         }
         payload = [
@@ -82,7 +81,13 @@ def generate_paragraph(request):
             }
         ]
         response = requests.post(url, json=payload, headers=headers)
+
         if response.status_code == 200:
-            result = response.json()
-            my_paragraph = result['text']
-            return my_paragraph
+            paragraph = response.json().get('text', None)
+            return render(request, 'appts/paragraph.html', {'paragraph': paragraph})
+
+    return HttpResponse()
+
+
+class ParagraphView (generic.TemplateView):
+    template_name = 'appts/paragraph.html'

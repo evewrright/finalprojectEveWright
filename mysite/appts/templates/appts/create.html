@@ -6,13 +6,11 @@
         <div class="mask d-flex align-items-center h-100" style="background-color: #D6D6D6;">
             <div class="container">
                 <div class="row justify-content-center">
-                    <div class="col-lg-8 mt-4"> <!-- Left 2/3 column with top margin -->
+                    <div class="col-lg-8 mt-4">
                         <div class="card mt-4 mb-4" style="border-radius: 1rem;">
                             <div class="card-body p-5">
 
-                                <row>
-                                    <h3 class="mb-5 text-center">New Appointment</h3>
-                                </row>
+                                <h3 class="mb-5 text-center">New Appointment</h3>
 
                                 <form method="POST" class="form">
                                     {% csrf_token %}
@@ -32,7 +30,7 @@
                                         {{ form.note }}
                                     </div>
                                     <!-- Date of Appointment/Occurred -->
-                                    <div class="form-outline mb-4">
+                                    <div class="form-group">
                                         <label class="form-label">Date of Appointment</label>
                                         {{ form.occurred }}
                                     </div>
@@ -43,11 +41,11 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4 mt-4"> <!-- Right 1/3 column with top margin -->
-                        <div class="d-flex flex-column justify-content-between h-100"> <!-- Make the container a flexbox -->
-                            <div class="card mt-4 mb-4 flex-grow-1" style="border-radius: 1rem;"> <!-- Use flex-grow-1 to make the card expand to fill remaining space -->
+                    <div class="col-lg-4 mt-4">
+                        <div class="d-flex flex-column justify-content-between h-100">
+                            <div class="card mt-4 mb-4 flex-grow-1" style="border-radius: 1rem;">
                                 <div class="card-body p-5">
-                                    <form method="POST" action="{% url 'appts:generate-paragraph' %}" class="form">
+                                    <form method="POST" action="{% url 'appts:generate-paragraph' %}" target="paragraph-iframe" class="form">
                                         {% csrf_token %}
                                         <div class="mb-3">
                                             <label for="inputTextArea" class="form-label">Your Text:</label>
@@ -56,10 +54,8 @@
                                         <button type="submit" class="btn btn-secondary mb-3" id="generate-paragraph-btn">Generate Paragraph</button>
                                     </form>
                                     <div>
-                                        <p>This is example</p>
-                                        {% if my_paragraph %}
-                                            <p>{{ my_paragraph }}</p>
-                                        {% endif %}
+                                        <p>Generated Paragraph:</p>
+                                        <iframe src="{% url 'appts:paragraph' %}" name="paragraph-iframe"></iframe>
                                     </div>
                                 </div>
                             </div>
@@ -70,5 +66,4 @@
         </div>
     </section>
 {% endblock %}
-
 
