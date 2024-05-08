@@ -71,7 +71,7 @@ def generate_paragraph(request):
         url = "https://chatgpt-api8.p.rapidapi.com/"
         headers = {
             'content-type': 'application/json',
-            'X-RapidAPI-Key': '1830fc88d2msh25c3bb738164ac9p11f623jsnc165619dcfcd',
+            'X-RapidAPI-Key': 'your_api_key',
             'X-RapidAPI-Host': 'chatgpt-api8.p.rapidapi.com'
         }
         payload = [
@@ -97,8 +97,12 @@ def historyview(request):
     if request.method == 'POST':
         start_date = request.POST.get('start_date')
         end_date = request.POST.get('end_date')
-        filtered_appointments = Appointment.objects.filter(occurred__range=(start_date, end_date))
-        return render(request, 'appts/history.html', {'myappointments': filtered_appointments})
+        if start_date and end_date:
+            filtered_appointments = Appointment.objects.filter(occurred__range=(start_date, end_date))
+            return render(request, 'appts/history.html', {'myappointments': filtered_appointments})
+        else:
+            appointments = Appointment.objects.all()
+            return render(request, 'appts/history.html', {'myappointments': appointments})
     else:
         appointments = Appointment.objects.all()
         return render(request, 'appts/history.html', {'myappointments': appointments})
