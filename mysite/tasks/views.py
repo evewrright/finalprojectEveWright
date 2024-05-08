@@ -14,7 +14,10 @@ class TasksIndexView(generic.ListView):
     def get_queryset(self):
         # Only retrieve tasks that were created by current user and aren't complete
         if self.request.user.is_authenticated:
-            return Task.objects.filter(author_id=self.request.user, complete=False)
+            queryset = {'todo': Task.objects.filter(author_id=self.request.user, complete=False),
+                        'completed': Task.objects.filter(author_id=self.request.user, complete=True).order_by(
+                            '-updated_at')[:3]}
+            return queryset
         else:
             return Task.objects.none()
 
@@ -69,5 +72,13 @@ def mark_complete(request, task_id):
     if request.method == 'POST':
         task = Task.objects.get(pk=task_id)
         task.complete = True
+        task.save()
+        return HttpResponseRedirect(reverse('tasks:index'))
+
+
+def undo(request, task_id):
+    if request.method == 'POST':
+        task = Task.objects.get(pk=task_id)
+        task.complete = False
         task.save()
         return HttpResponseRedirect(reverse('tasks:index'))
