@@ -30,6 +30,5 @@ class ApptsForm(forms.ModelForm):
         widgets = {
             'student': forms.Select(attrs={'class': 'form-control'}),
             'topic': forms.Select(attrs={'class': 'form-control'}),
-            'note': forms.Textarea(attrs={'class': 'form-control'}),
-            'occurred': DateTimeSplitWidget()
+            'note': forms.Textarea(attrs={'class': 'form-control'})
         }
