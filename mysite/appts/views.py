@@ -91,3 +91,15 @@ def generate_paragraph(request):
 
 class ParagraphView (generic.TemplateView):
     template_name = 'appts/paragraph.html'
+
+
+def historyview(request):
+    if request.method == 'POST':
+        start_date = request.POST.get('start_date')
+        end_date = request.POST.get('end_date')
+        filtered_appointments = Appointment.objects.filter(occurred__range=(start_date, end_date))
+    #context = {'form': ApptsFilterForm(), 'appointments': filt_appointments}
+        return render(request, 'appts/history.html', {'myappointments': filtered_appointments})
+    else:
+        appointments = Appointment.objects.all()
+        return render(request, 'appts/history.html', {'myappointments': appointments})

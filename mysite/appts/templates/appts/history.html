@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+# create view for user to input filter range
+# create table in html with if statements around it
+### - if in query stated in view, then display in this table format
+
+{% block content %}
+    <form method="POST" action="{% url 'appts:history' %}">
+        {% csrf_token %}
+        <label for="start_date">Start Date</label>
+        <input id="start_date" type="date" name="start_date">
+        <label for="end_date">End Date</label>
+        <input id="end_date" type="date" name="end_date">
+        <input type="submit" value="Search" class="btn-btn-primary" />
+
+        <div class="container">
+          <table class="table table-striped mb-0">
+            <thead style="background-color: #002d72;">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Student</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% if myappointments %}
+                {% for appointment in myappointments %}
+                  <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td><a href="{% url 'appts:detail' appointment.id %}">{{ appointment.student }}</a></td>
+                    <td>{{ appointment.topic }}</td>
+                    <td>{{ appointment.created_at }}</td>
+                    <td>{{ appointment.occurred }}</td>
+                    <td>Delete</td>
+                    <td><a href="{% url 'appts:update' appointment.id %}">Edit</a></td>
+                  </tr>
+                {% endfor %}
+              {% else %}
+                <tr>
+                  <td colspan="2">You have no appointments to display.</td>
+                </tr>
+              {% endif %}
+            </tbody>
+          </table>
+        </div>
+    </form>
+{% endblock %}

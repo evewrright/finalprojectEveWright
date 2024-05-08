@@ -9,5 +9,6 @@ urlpatterns = [
     path("create", views.ApptsCreateView.as_view(), name="create"),
     path("update/<int:pk>/", views.ApptsUpdateView.as_view(), name="update"),
     path('generate-paragraph/', views.generate_paragraph, name='generate-paragraph'),
-    path('paragraph/', views.ParagraphView.as_view(), name="paragraph")
+    path('paragraph/', views.ParagraphView.as_view(), name="paragraph"),
+    path('history/', views.historyview, name="history")
     ]
