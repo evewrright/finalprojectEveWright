@@ -47,9 +47,6 @@
                                                         </form>
                                                     </td>
                                                     <td>
-                                                        <button type="button" class="btn btn-danger" data-task-id="{{ task.id }}" data-mdb-ripple-init data-mdb-modal-init data-mdb-target="#deleteModal{{ task.id }}"><i class="fas fa-trash-can"></i></button>
-                                                    </td>
-                                                    <td>
                                                         <a style="color: #dd4b39;" role="button" data-task-id="{{ task.id }}" data-mdb-ripple-init data-mdb-modal-init data-mdb-target="#deleteModal{{ task.id }}"><i class="fas fa-trash-can"></i></a>
                                                         <a href="{% url 'tasks:update' task.id %}">Edit</a>
                                                     </td>
