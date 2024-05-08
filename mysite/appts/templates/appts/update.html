@@ -4,46 +4,68 @@
 {% block content %}
     <section class="intro">
         <div class="mask d-flex align-items-center h-100" style="background-color: #D6D6D6;">
-          <div class="container">
-            <div class="row justify-content-center">
-              <div class="col-12 col-lg-10">
-                <div class="card" style="border-radius: 1rem;">
-                  <div class="card-body p-5">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8 mt-4">
+                        <div class="card mt-4 mb-4" style="border-radius: 1rem;">
+                            <div class="card-body p-5">
 
-                    <h3 class="mb-5 text-center">Edit Appointment</h3>
-                    <a href="{%  url 'appts:index' %}" class="btn btn-secondary">Cancel</a>
+                                <h3 class="mb-5 text-center">Edit Appointment</h3>
 
-                    <form method="POST" class="form">
-                      {% csrf_token %}
-                      <!-- Student -->
-                      <div class="form-group">
-                        <label class="form-label">{{ form.student.label_tag }}</label>
-                        {{ form.student }}
-                      </div>
-                      <!-- Topic -->
-                      <div class="form-group">
-                        <label class="form-label">{{ form.topic.label_tag }}</label>
-                        {{ form.topic }}
-                      </div>
-                      <!-- Note -->
-                      <div class="form-outline mb-4">
-                        <label class="form-label">{{ form.note.label_tag }}</label>
-                        {{ form.note }}
-                      </div>
-                      <!-- Date of Appointment/Occurred -->
-                      <div class="form-outline mb-4">
-                        <label class="form-label">Date of Appointment</label>
-                        {{ form.occurred }}
-                      </div>
-                      <!-- Submit button -->
-                      <button data-mdb-ripple-init type="submit" value="Save" class="btn btn-primary btn-block mb-4">Save</button>
-                    </form>
+                                <form method="POST" class="form">
+                                    {% csrf_token %}
+                                    <!-- Student -->
+                                    <div class="form-group">
+                                        <label class="form-label">{{ form.student.label_tag }}</label>
+                                        {{ form.student }}
+                                    </div>
+                                    <!-- Topic -->
+                                    <div class="form-group">
+                                        <label class="form-label">{{ form.topic.label_tag }}</label>
+                                        {{ form.topic }}
+                                    </div>
+                                    <!-- Note -->
+                                    <div class="form-outline mb-4">
+                                        <label class="form-label">{{ form.note.label_tag }}</label>
+                                        {{ form.note }}
+                                    </div>
+                                    <!-- Date of Appointment/Occurred -->
+                                    <div class="form-group">
+                                        <label class="form-label">Date of Appointment</label>
+                                        {{ form.occurred }}
+                                    </div>
+                                    <div class="button-container d-flex justify-content-end">
+                                        <a href="{% url 'appts:index' %}" class="btn btn-secondary mx-2">Cancel</a>
+                                        <button data-mdb-ripple-init type="submit" value="Save" class="btn btn-primary">Save</button>
+                                    </div>
+                                </form>
 
-                  </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 mt-4">
+                        <div class="d-flex flex-column justify-content-between h-100">
+                            <div class="card mt-4 mb-4 flex-grow-1" style="border-radius: 1rem;">
+                                <div class="card-body p-5">
+                                    <form method="POST" action="{% url 'appts:generate-paragraph' %}" target="paragraph-iframe" class="form">
+                                        {% csrf_token %}
+                                        <div class="mb-3">
+                                            <label for="inputTextArea" class="form-label">Your Text:</label>
+                                            <textarea class="form-control" id="inputTextArea" name="inputTextArea" rows="5"></textarea>
+                                        </div>
+                                        <button type="submit" class="btn btn-secondary mb-3" id="generate-paragraph-btn">Generate Paragraph</button>
+                                    </form>
+                                    <div>
+                                        <p>Generated Paragraph:</p>
+                                        <iframe src="{% url 'appts:paragraph' %}" name="paragraph-iframe"></iframe>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
             </div>
-          </div>
         </div>
     </section>
 {% endblock %}
+
