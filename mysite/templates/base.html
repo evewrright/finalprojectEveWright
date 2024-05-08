@@ -26,54 +26,58 @@
         <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary">
       <div class="container">
-            <!-- Toggle button -->
-         <button
-                class="navbar-toggler"
-                type="button"
-                data-mdb-toggle="collapse"
-                data-mdb-target="#navbarButtonsExample"
-                aria-controls="navbarButtonsExample"
-                aria-expanded="false"
-                aria-label="Toggle navigation"
-         >
-            <i class="fas fa-bars"></i>
-         </button>
-            <!-- Collapsible wrapper -->
-         <div class="collapse navbar-collapse" id="navbarButtonsExample">
-                <!-- Left links -->
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" aria-expanded="false">
-                        Tasks
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li>
-                            <a class="dropdown-item" href="">Active Tasks</a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="">Task History</a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-            <!-- Login/Logout buttons -->
+        <!-- Toggle button -->
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-mdb-toggle="collapse"
+          data-mdb-target="#navbarButtonsExample"
+          aria-controls="navbarButtonsExample"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <i class="fas fa-bars"></i>
+        </button>
+        <!-- Collapsible wrapper -->
+        <div class="collapse navbar-collapse" id="navbarButtonsExample">
+          <!-- Left links -->
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'main:home' %}">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'tasks:index' %}">Tasks</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a data-mdb-dropdown-init class="nav-link dropdown-toggle" href="{% url 'appts:index' %}" id="navbarDropdownMenuLink" role="button" aria-expanded="false">
+                  Appointments
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                  <li>
+                    <a class="dropdown-item" href="{% url 'appts:index' %}">Appointments</a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="{% url 'appts:history' %}">Appointment Search</a>
+                  </li>
+              </ul>
+            </li>
+          </ul>
+          <!-- Right links -->
+          <div class="d-flex align-items-center">
             {% if request.user.is_authenticated %}
-              <div class="d-flex align-items-center">
-                <span class="navbar-text" id="welcome-user">Welcome, {{ request.user.username }}</span>
-                <form action="{% url 'main:logout' %}" method="POST">{% csrf_token %}
-                    <button type="submit" class="btn btn-link px-3 me-2">Logout</button>
-                </form>
-              </div>
+            <span class="navbar-text me-2" id="welcome-user">Welcome, {{ request.user.username }}</span>
+            <form action="{% url 'main:logout' %}" method="POST">{% csrf_token %}
+              <button type="submit" class="btn btn-link px-3">Logout</button>
+            </form>
             {% else %}
-              <div class="d-flex align-items-center">
-                <a href="{%  url 'main:my-login' %}" class="btn btn-link px-3 me-2">Login</a>
-              </div>
+            <a href="{% url 'main:my-login' %}" class="btn btn-link px-3">Login</a>
             {% endif %}
-         </div>
-            <!-- Collapsible wrapper -->
+          </div>
+        </div>
+        <!-- Collapsible wrapper -->
       </div>
     </nav>
-    <!-- Navbar -->
+    <!-- End Navbar -->
     {% block content %}{% endblock %}
     <!-- Bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
