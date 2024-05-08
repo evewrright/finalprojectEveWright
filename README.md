@@ -5,64 +5,64 @@
 
 # Final Project
 
-Simple overview of use/purpose.
+This project serves as a demo for a record-keeping and task management system geared toward Academic Advisors. This project also utilizes openAI’s chatGPT API to generate paragraph from user input.
 
 ## Description
 
-An in-depth paragraph about your project and overview of use.
+Efficient Appointment Management: Advisr enables advisors to easily add an appointment record with required fields, 
+cutting down on mistakes and missing information. Advisors can log in, create appointments, and document detailed notes for each interaction.
+
+To-Do List Integration: Stay organized by using the dedicated to-do page where advisors can add and manage tasks, 
+keeping all important action items in one centralized location for enhanced organization and efficiency.
+
+AI Assistance: Complete notes more efficiently with the help of a paragraph generator, powered by openAI. 
+Enter your bulleted or incomplete notes, and the paragraph generator will transform them into coherent paragraphs, saving you time and effort.
+
+Appointment Search Functionality: Unlike existing systems, Advisr offers a search and filter feature by appointment date. 
+This allows advisors to quickly locate specific appointments, improving record tracking capabilities.
+
 
 ## Getting Started
 
-### Dependencies
+### Dependencies & Installing
 
-* Describe any prerequisites, libraries, OS version, etc., needed before installing program.
-* ex. Windows 10
-* List pip install instructions.
+* PIP Install instructions by running the following command in terminal:
+```
+-r requirements.txt
+```
+* Subscribe to openAI's chatGPT API and get an API key. Then, enter the API key in appts/views 
+* under def generate_paragraph: https://rapidapi.com/haxednet/api/chatgpt-api8
 
-### Installing
-
-* How/where to download your program
-* Any modifications needed to be made to files/folders
 
 ### Executing program
 
-* How to run the program
-* Step-by-step bullets
+* Move to project folder by running the following command in terminal:
 ```
-python manage.py runserver
+cd mysite
 ```
-
-## Help
-
-Any advise for common problems or issues.
+* Now, run the following commands in the terminal:
 ```
-command to run if program contains helper info
+py manage.py makemigrations
+py manage.py migrate
+py manage.py runserver
+```
+* Create a superuser for administrator use by running following command in terminal:
+```
+python manage.py createsuperuser
 ```
 
 ## Authors
 
 Contributors names and contact info
 
-ex. Dominique Pizzie  
-ex. [@DomPizzie](https://twitter.com/dompizzie)
+ex. Eve Wright
 
-## Version History
-
-* 0.2
-    * Various bug fixes and optimizations
-    * See [commit change]() or See [release history]()
-* 0.1
-    * Initial Release
-
-## License
-
-This project is licensed under the [NAME HERE] License - see the LICENSE.md file for details
 
 ## Acknowledgments
 
 Inspiration, code snippets, etc.
-* [awesome-readme](https://github.com/matiassingers/awesome-readme)
+* [Generic List & Detail Views Django](https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Generic_views
+)
 * [Django Login, Logout](https://learndjango.com/tutorials/django-login-and-logout-tutorial)
-* [example1](https://github.com/dbader/readme-template)
-* [example2](https://gist.github.com/zenorocha/4526327)
-* [example3](https://gist.github.com/fvcproductions/1bfc2d4aecb01a834b46)
+* [Search by Date Range Django](https://www.youtube.com/watch?v=0pybB--Z7qo)
+* [MDBootstrap To-Do List Styling](https://mdbootstrap.com/docs/standard/extended/to-do-list/)
